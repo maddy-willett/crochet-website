@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Yarn Garden</title>
+</head>
+<body>
+    <h1>Welcome to the Yarn Garden, I'm so glad you're here!</h1>
+
+    {% for product in products %}
+    <div>
+        <h3>{{ product.name }}</h3>
+        <p>Price: ${{ product.price }}</p>
+
+        <a href="/product/{{ product.id }}">
+            <button style="padding: 8px 12px; margin-top: 5px;">
+                View Product
+            </button>
+        </a>
+    </div>
+{% endfor %}
+</body>
+</html>
