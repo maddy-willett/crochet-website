@@ -25,6 +25,20 @@
         <p>No analytics data yet.</p>
     {% endif %}
 
+    <h3>Recent Activity</h3>
+
+{% if recent_activity %}
+    <ul>
+        {% for event in recent_activity %}
+            <li>
+                {{ event.product_name }} viewed at {{ event.timestamp }}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No recent activity.</p>
+{% endif %}
+
     <a href="/">Back to Home</a>
 </body>
 </html>

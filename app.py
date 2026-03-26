@@ -115,6 +115,16 @@ def analytics_page():
     """)
     total_views = cursor.fetchone()[0]
 
+    # recent activity
+    cursor.execute("""
+        select product_name, timestamp
+        from events
+        where event = 'view_product'
+        order by timestamp desc
+        limit 5
+    """)
+    recent_results = cursor.fetchall()
+
     conn.close()
 
     analytics_data = []
@@ -124,14 +134,22 @@ def analytics_page():
             "views": row[1]
         })
 
+    recent_activity = []
+    for row in recent_results:
+        recent_activity.append({
+            "product_name": row[0],
+            "timestamp": row[1]
+        })
+
     top_product = analytics_data[0] if analytics_data else None
 
     return render_template(
-        "analytics.html",
-        analytics=analytics_data,
-        total_views=total_views,
-        top_product=top_product
-    )
+    "analytics.html",
+    analytics=analytics_data,
+    total_views=total_views,
+    top_product=top_product,
+    recent_activity=recent_activity
+)
 
 
 @app.route("/events")
