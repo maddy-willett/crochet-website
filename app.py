@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 import sqlite3
 from datetime import datetime
 
 app = Flask(__name__)
+app.secret_key = "my_secret_key"
 
 
 def init_db():
@@ -52,6 +53,39 @@ def product_page(product_id):
     return render_template("product.html", product=product)
 
 
+@app.route("/add-to-cart/<int:product_id>", methods=["POST"])
+def add_to_cart(product_id):
+    product = next((p for p in products if p["id"] == product_id), None)
+
+    if product is None:
+        return "Product not found", 404
+
+    cart = session.get("cart", [])
+    cart.append(product)
+    session["cart"] = cart
+
+    timestamp = datetime.now().isoformat()
+    conn = sqlite3.connect("events.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        insert into events (event, product_id, product_name, timestamp)
+        values (?, ?, ?, ?)
+    """, ("add_to_cart", product["id"], product["name"], timestamp))
+
+    conn.commit()
+    conn.close()
+
+    return redirect(url_for("cart_page"))
+
+
+@app.route("/cart")
+def cart_page():
+    cart = session.get("cart", [])
+    total = sum(item["price"] for item in cart)
+    return render_template("cart.html", cart=cart, total=total)
+
+
 @app.route("/track", methods=["POST"])
 def track_event():
     data = request.get_json()
@@ -86,7 +120,6 @@ def analytics():
         group by product_name
         order by views desc
     """)
-
     results = cursor.fetchall()
     conn.close()
 
@@ -105,7 +138,6 @@ def analytics_page():
     conn = sqlite3.connect("events.db")
     cursor = conn.cursor()
 
-    # product views
     cursor.execute("""
         select product_name, count(*) as views
         from events
@@ -115,13 +147,11 @@ def analytics_page():
     """)
     results = cursor.fetchall()
 
-    # total views
     cursor.execute("""
         select count(*) from events where event = 'view_product'
     """)
     total_views = cursor.fetchone()[0]
 
-    # recent activity
     cursor.execute("""
         select product_name, timestamp
         from events
@@ -158,9 +188,31 @@ def analytics_page():
     )
 
 
-@app.route("/cart")
-def cart_page():
-    return render_template("cart.html")
+@app.route("/events")
+def get_events():
+    conn = sqlite3.connect("events.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        select id, event, product_id, product_name, timestamp
+        from events
+        order by id desc
+    """)
+
+    results = cursor.fetchall()
+    conn.close()
+
+    events_data = []
+    for row in results:
+        events_data.append({
+            "id": row[0],
+            "event": row[1],
+            "product_id": row[2],
+            "product_name": row[3],
+            "timestamp": row[4]
+        })
+
+    return jsonify(events_data)
 
 
 if __name__ == "__main__":

@@ -12,7 +12,7 @@
                     <h3>{{ product.name }}</h3>
                     <p><strong>Price:</strong> ${{ product.price }}</p>
 
-                    <a href="/product/{{ product.id }}">
+                    <a href="{{ url_for('product_page', product_id=product.id) }}">
                         <button>View Product</button>
                     </a>
                 </div>
