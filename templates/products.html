@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Products{% endblock %}
+
+{% block content %}
+    <h1>All Crochet Products</h1>
+
+    {% if products %}
+        <div class="product-grid">
+            {% for product in products %}
+                <div class="product-card">
+                    <h3>{{ product.name }}</h3>
+                    <p><strong>Price:</strong> ${{ product.price }}</p>
+
+                    <a href="/product/{{ product.id }}">
+                        <button>View Product</button>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No products available.</p>
+    {% endif %}
+{% endblock %}
