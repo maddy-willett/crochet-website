@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analytics Dashboard</title>
+</head>
+<body>
+    <h1>Analytics Dashboard</h1>
+
+    <h2>Total Product Views: {{ total_views }}</h2>
+
+    {% if top_product %}
+        <h3>Most Popular Product:</h3>
+        <p>{{ top_product.product_name }} — {{ top_product.views }} views</p>
+    {% endif %}
+
+    <h3>All Product Views</h3>
+
+    {% if analytics %}
+        <ul>
+            {% for item in analytics %}
+                <li>{{ item.product_name }} — {{ item.views }} views</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No analytics data yet.</p>
+    {% endif %}
+
+    <a href="/">Back to Home</a>
+</body>
+</html>

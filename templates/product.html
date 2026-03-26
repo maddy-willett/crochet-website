@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <title>{{ product.name }}</title>
@@ -27,7 +28,7 @@
             })
             .then(response => response.json())
             .then(data => {
-                console.log("Success:", data);
+                console.log("Tracked:", data);
                 alert("Event tracked!");
             })
             .catch(error => {
