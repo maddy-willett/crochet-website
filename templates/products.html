@@ -10,15 +10,17 @@
             {% for product in products %}
                 <div class="product-card">
                     <h3>{{ product.name }}</h3>
-                    <p><strong>Price:</strong> ${{ product.price }}</p>
+                    <p class="product-price">${{ product.price }}</p>
 
-                    <a href="{{ url_for('product_page', product_id=product.id) }}">
+                    <a class="button-link" href="{{ url_for('product_page', product_id=product.id) }}">
                         <button>View Product</button>
                     </a>
                 </div>
             {% endfor %}
         </div>
     {% else %}
-        <p>No products available.</p>
+        <div class="empty-state">
+            <p>No products available.</p>
+        </div>
     {% endif %}
 {% endblock %}

@@ -3,16 +3,23 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-    <h1>Welcome to the Crochet Shop</h1>
+    <div class="hero">
+        <h1>Welcome to the Yarn Garden By Grace Gerken</h1>
+        <p>Handmade crochet pieces with a cozy, playful feel.</p>
+    </div>
 
-    {% for product in products %}
-        <div>
-            <h3>{{ product.name }}</h3>
-            <p>Price: ${{ product.price }}</p>
+    <h2>Featured Products</h2>
 
-            <a href="/product/{{ product.id }}">
-                <button>View Product</button>
-            </a>
-        </div>
-    {% endfor %}
+    <div class="product-grid">
+        {% for product in products %}
+            <div class="product-card">
+                <h3>{{ product.name }}</h3>
+                <p class="product-price">${{ product.price }}</p>
+
+                <a class="button-link" href="{{ url_for('product_page', product_id=product.id) }}">
+                    <button>View Product</button>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

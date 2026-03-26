@@ -3,17 +3,21 @@
 {% block title %}Cart{% endblock %}
 
 {% block content %}
-    <h1>🛒 Your Cart</h1>
+    <h1>Your Cart</h1>
 
     {% if cart %}
-        <ul>
-            {% for item in cart %}
-                <li>{{ item.name }} — ${{ item.price }}</li>
-            {% endfor %}
-        </ul>
+        <div class="card">
+            <ul>
+                {% for item in cart %}
+                    <li>{{ item.name }} — ${{ item.price }}</li>
+                {% endfor %}
+            </ul>
 
-        <h3>Total: ${{ total }}</h3>
+            <h3>Total: ${{ total }}</h3>
+        </div>
     {% else %}
-        <p>Your cart is empty.</p>
+        <div class="empty-state">
+            <p>Your cart is empty.</p>
+        </div>
     {% endif %}
 {% endblock %}

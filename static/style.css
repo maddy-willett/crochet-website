@@ -1,0 +1,132 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #fff8f6;
+    color: #4b3832;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    background: #f6d6d6;
+    padding: 18px 0;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+nav a {
+    text-decoration: none;
+    color: #6b4f4f;
+    font-weight: bold;
+    margin: 0 18px;
+    font-size: 16px;
+}
+
+nav a:hover {
+    color: #c06c84;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+h1, h2, h3 {
+    color: #7a4e57;
+}
+
+.card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+    margin-top: 20px;
+}
+
+.product-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+.product-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #c06c84;
+    margin-top: 8px;
+}
+
+button {
+    background: #d98ca3;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 16px;
+    margin-top: 12px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #c06c84;
+}
+
+a.button-link {
+    text-decoration: none;
+}
+
+.hero {
+    background: linear-gradient(135deg, #fcefee, #f8dede);
+    border-radius: 20px;
+    padding: 36px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.hero p {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 8px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 18px;
+    text-decoration: none;
+    color: #7a4e57;
+    font-weight: bold;
+}
+
+.back-link:hover {
+    color: #c06c84;
+}
+
+.empty-state {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
