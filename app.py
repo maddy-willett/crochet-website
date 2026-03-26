@@ -37,6 +37,11 @@ def home():
     return render_template("index.html", products=products)
 
 
+@app.route("/products")
+def products_page():
+    return render_template("products.html", products=products)
+
+
 @app.route("/product/<int:product_id>")
 def product_page(product_id):
     product = next((p for p in products if p["id"] == product_id), None)
@@ -94,12 +99,13 @@ def analytics():
 
     return jsonify(analytics_data)
 
+
 @app.route("/analytics-page")
 def analytics_page():
     conn = sqlite3.connect("events.db")
     cursor = conn.cursor()
 
-    # product view counts
+    # product views
     cursor.execute("""
         select product_name, count(*) as views
         from events
@@ -144,47 +150,18 @@ def analytics_page():
     top_product = analytics_data[0] if analytics_data else None
 
     return render_template(
-    "analytics.html",
-    analytics=analytics_data,
-    total_views=total_views,
-    top_product=top_product,
-    recent_activity=recent_activity
-)
+        "analytics.html",
+        analytics=analytics_data,
+        total_views=total_views,
+        top_product=top_product,
+        recent_activity=recent_activity
+    )
 
-
-@app.route("/events")
-def get_events():
-    conn = sqlite3.connect("events.db")
-    cursor = conn.cursor()
-
-    cursor.execute("""
-        select id, event, product_id, product_name, timestamp
-        from events
-        order by id desc
-    """)
-
-    results = cursor.fetchall()
-    conn.close()
-
-    events_data = []
-    for row in results:
-        events_data.append({
-            "id": row[0],
-            "event": row[1],
-            "product_id": row[2],
-            "product_name": row[3],
-            "timestamp": row[4]
-        })
-
-    return jsonify(events_data)
-
-@app.route("/products")
-def products_page():
-    return render_template("products.html", products=products)
 
 @app.route("/cart")
 def cart_page():
     return render_template("cart.html")
+
 
 if __name__ == "__main__":
     app.run(debug=True, host="127.0.0.1", port=8000)
