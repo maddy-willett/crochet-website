@@ -178,6 +178,13 @@ def get_events():
 
     return jsonify(events_data)
 
+@app.route("/products")
+def products_page():
+    return render_template("products.html", products=products)
+
+@app.route("/cart")
+def cart_page():
+    return render_template("cart.html")
 
 if __name__ == "__main__":
     app.run(debug=True, host="127.0.0.1", port=8000)

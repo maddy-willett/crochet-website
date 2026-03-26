@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Crochet Shop{% endblock %}</title>
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a> |
+        <a href="/products">Products</a> |
+        <a href="/cart">Cart</a> |
+        <a href="/analytics-page">Analytics</a>
+    </nav>
+
+    <hr>
+
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

@@ -1,22 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Crochet Shop</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
     <h1>Welcome to the Crochet Shop</h1>
 
     {% for product in products %}
-    <div>
-        <h3>{{ product.name }}</h3>
-        <p>Price: ${{ product.price }}</p>
+        <div>
+            <h3>{{ product.name }}</h3>
+            <p>Price: ${{ product.price }}</p>
 
-        <a href="/product/{{ product.id }}">
-            <button style="padding: 8px 12px; margin-top: 5px;">
-                View Product
-            </button>
-        </a>
-    </div>
+            <a href="/product/{{ product.id }}">
+                <button>View Product</button>
+            </a>
+        </div>
     {% endfor %}
-</body>
-</html>
+{% endblock %}

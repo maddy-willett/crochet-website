@@ -1,20 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Analytics Dashboard</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}Analytics{% endblock %}
+
+{% block content %}
     <h1>Analytics Dashboard</h1>
 
     <h2>Total Product Views: {{ total_views }}</h2>
 
     {% if top_product %}
-        <h3>Most Popular Product:</h3>
+        <h3>Most Popular Product</h3>
         <p>{{ top_product.product_name }} — {{ top_product.views }} views</p>
     {% endif %}
 
     <h3>All Product Views</h3>
-
     {% if analytics %}
         <ul>
             {% for item in analytics %}
@@ -25,20 +23,12 @@
         <p>No analytics data yet.</p>
     {% endif %}
 
-    <h3>Recent Activity</h3>
-
-{% if recent_activity %}
-    <ul>
-        {% for event in recent_activity %}
-            <li>
-                {{ event.product_name }} viewed at {{ event.timestamp }}
-            </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No recent activity.</p>
-{% endif %}
-
-    <a href="/">Back to Home</a>
-</body>
-</html>
+    {% if recent_activity %}
+        <h3>Recent Activity</h3>
+        <ul>
+            {% for event in recent_activity %}
+                <li>{{ event.product_name }} viewed at {{ event.timestamp }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
